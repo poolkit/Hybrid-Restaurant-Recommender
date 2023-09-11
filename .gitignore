@@ -1,0 +1,5 @@
+.ipynb_checkpoints/
+dataset/
+notebooks/.ipynb_checkpoints/
+notebooks/test.csv
+saved/model.h5
