@@ -1,0 +1,4 @@
+Flask==1.1.1
+keras==2.14.0
+keras_nightly==2.5.0.dev2021032900
+numpy==1.19.2

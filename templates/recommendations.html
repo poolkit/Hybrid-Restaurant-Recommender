@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 10 Restaurant Recommendations</title>
+    <style>
+        /* Add CSS styling here to make the page beautiful */
+    </style>
+</head>
+<body>
+    <h1>Top 10 Restaurant Recommendations for User {{ user_id }}</h1>
+    <ul>
+        {% for restaurant in top_10_restaurants %}
+            <li>{{ restaurant }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

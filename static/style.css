@@ -1,0 +1,73 @@
+/* Reset some default styles for better styling */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a background image to the entire viewport */
+.background-image {
+    background-image: url('https://plus.unsplash.com/premium_photo-1663013275516-6afd24602981?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); /* Replace with your background image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Add this */
+}
+
+/* Style the content container */
+.content {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for better readability */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Style the heading */
+h1 {
+    font-size: 56px;
+    font-family: 'Helvetica';
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #d21d1d; /* Dark gray text color */
+}
+
+/* Style the paragraph */
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555; /* Light gray text color */
+}
+
+/* Style the form and input field */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+    background-color: #ff5722; /* Orange button color */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #ff7043; /* Lighter orange on hover */
+}
