@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from recommend import collab_recommend_restaurants
-from loader import load_cache, load_encoders, create_dict
+from loader import load_cache, load_encoders, create_dict, get_restaurant_data
 from model import create_collab_model
 import warnings
 warnings.filterwarnings("ignore")
@@ -29,14 +29,23 @@ def recommendations():
     user_id = request.form['UserID']
     return redirect(f'/recommendations/{user_id}')
 
+# @app.route('/search', methods=['POST'])
+# def search_restaurants():
+#     selected_options = request.json.get('options', [])
+#     return redirect(f'/recommendations/{user_id}')
+
 @app.route('/recommendations/<user_id>')
 def show_recommendations(user_id):
     load_data()
     top_10_restaurants = collab_recommend_restaurants(user_id, collab_model, idx2business, user2idx, user_cache)
-    return render_template('recommendations.html', top_10_restaurants=top_10_restaurants)
+    recommended_restaurants = get_restaurant_data(top_10_restaurants)
+    return render_template('recommendations.html', recommended_restaurants=recommended_restaurants)
+    
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=True)
 
-
-# recommendations('mh_-eMZ6K5RLWhZyISBhwA')
+# load_data()
+# x = collab_recommend_restaurants('mh_-eMZ6K5RLWhZyISBhwA', collab_model, idx2business, user2idx, user_cache)
+# x = get_restaurant_data(x)
+# print(x)

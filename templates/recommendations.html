@@ -1,17 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 10 Restaurant Recommendations</title>
-    <style>
-        /* Add CSS styling here to make the page beautiful */
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='recommendations.css') }}">
 </head>
 <body>
-    <h1>Top 10 Restaurant Recommendations for User {{ user_id }}</h1>
-    <ul>
-        {% for restaurant in top_10_restaurants %}
-            <li>{{ restaurant }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="header">
+            <h1>Your Restaurant Recommender</h1>
+        </div>
+        <div class="content-container">
+            <div class="left-pane">
+                <h2>What do you wanna eat today?</h2>
+                <form action="/search" method="post">
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" name="option" value="Option 1"> Option 1
+                        </label>
+                    </div>
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" name="option" value="Option 2"> Option 2
+                        </label>
+                    </div>
+                    <!-- Add more options as needed -->
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="right-pane">
+                <div class="header">
+                    <h1>Restaurants You Might Like</h1>
+                </div>
+                <div class="restaurant-list">
+                    <div class="restaurant-row">
+                        {% for restaurant in recommended_restaurants %}
+                        <div class="restaurant-card">
+                            <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                            <div class="restaurant-name">{{ restaurant.name }}</div>
+                            <div class="restaurant-rating">Rating: {{ restaurant.rating }}</div>
+                        </div>
+                        {% if loop.index % 5 == 0 %}
+                    </div>
+                    <div class="restaurant-row">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
