@@ -9,7 +9,19 @@
     <p>{{ restaurant.rating }}</p>
     <p>{{ restaurant.address }}</p>
     <p>{{ restaurant.hours }}</p>
-    <p>{{ restaurant.top_6_restaurants }}</p>
+    <div class="restaurant-row">
+        {% for each in top_6_restaurants %}
+        <a href="{{ url_for('restaurant_page', restaurant_id=each.id, user_id=user_id) }}" class="restaurant-card">
+            <img class="restaurant-image" src="{{ each.image_url }}" alt="{{ restaurant.name }}">
+            <div class="restaurant-name">{{ each.name }}</div>
+            <div class="restaurant-rating">Rating: {{ each.rating }}</div>
+        </a>
+        {% if loop.index % 3 == 0 %}
+    </div>
+    <div class="restaurant-row">
+        {% endif %}
+        {% endfor %}
+    </div>
     <!-- Add more restaurant details here -->
 </body>
 </html>

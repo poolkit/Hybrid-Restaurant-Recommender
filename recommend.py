@@ -47,5 +47,4 @@ def hybrid_recommend_restaurants(user_id, business_id):
     top_12 = sorted_scores[:12]
     top_12 = [t[0] for t in top_12]
     top_6_restaurants = random.sample(top_12, 6)
-
     return top_6_restaurants
