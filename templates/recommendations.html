@@ -37,11 +37,11 @@
                 <div class="restaurant-list">
                     <div class="restaurant-row">
                         {% for restaurant in recommended_restaurants %}
-                        <div class="restaurant-card">
+                        <a href="{{ url_for('restaurant_page', restaurant_id=restaurant.id) }}" class="restaurant-card">
                             <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
                             <div class="restaurant-name">{{ restaurant.name }}</div>
                             <div class="restaurant-rating">Rating: {{ restaurant.rating }}</div>
-                        </div>
+                        </a>
                         {% if loop.index % 5 == 0 %}
                     </div>
                     <div class="restaurant-row">
