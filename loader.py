@@ -39,11 +39,16 @@ def get_restaurant_data(restaurents):
             if restaurant_id in restaurents:
                 restaurant_name = row['name']
                 restaurant_rating = row['stars']
+                restaurant_address = row['address']
+                restaurant_hours = row['hours']
                 restaurant_image_url = "https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg"  # If you have an 'image_url' column
 
                 restaurant_data.append({
+                                'id': restaurant_id,
                                 'name': restaurant_name,
                                 'rating': restaurant_rating,
-                                'image_url': restaurant_image_url
+                                'image_url': restaurant_image_url,
+                                'address': restaurant_address,
+                                'hours': restaurant_hours
                             })
     return restaurant_data
