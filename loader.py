@@ -52,3 +52,7 @@ def get_restaurant_data(restaurents):
                                 'hours': restaurant_hours
                             })
     return restaurant_data
+
+if __name__=='__main__':
+    business_encoder, user_encoder, num_businesses, num_users = load_encoders()
+    print(business_encoder)

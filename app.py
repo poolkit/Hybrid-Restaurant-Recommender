@@ -31,13 +31,13 @@ def recommendations():
     user_id = request.form['UserID']
     if not user_id:
         flash('UserID cannot be empty.', 'error')
-        return render_template('index.html')
+        return redirect('/')
     return redirect(f'/recommendations/{user_id}')
 
-# @app.route('/search', methods=['POST'])
-# def search_restaurants():
-#     selected_options = request.json.get('options', [])
-#     return redirect(f'/recommendations/{user_id}')
+@app.route('/search', methods=['POST'])
+def search_restaurants():
+    selected_options = request.form.getlist('option')
+    return render_template('search.html', selected_options=', '.join(selected_options))
 
 @app.route('/recommendations/<user_id>')
 def show_recommendations(user_id):
@@ -59,7 +59,6 @@ def restaurant_page(restaurant_id):
         # Add other restaurant details here
     }
     return render_template('restaurant.html', restaurant=restaurant)
-    
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=True)
