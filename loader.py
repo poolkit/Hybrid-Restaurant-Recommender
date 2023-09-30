@@ -1,5 +1,6 @@
 import pickle
 import csv
+from model import create_collab_model
 
 def load_encoders():
     with open('saved/business_encoder.pickle', 'rb') as b:
@@ -28,8 +29,21 @@ def load_cache():
         user_cache = {}
     return user_cache
 
-def get_restaurant_data(restaurents):
+def load_content_scores():
+    with open('saved/content_based_scores.pickle', 'rb') as b:
+        content_based_scores = pickle.load(b)
+    return content_based_scores
 
+def load_data():
+    business_encoder, user_encoder, num_businesses, num_users = load_encoders()
+    business2idx, idx2business, user2idx, idx2user = create_dict(business_encoder, user_encoder)
+    collab_model = create_collab_model(num_businesses, num_users)
+    collab_model.load_weights('saved/model_weights.h5')
+    user_cache = load_cache()
+    return idx2business, user2idx, collab_model, user_cache
+
+
+def get_restaurant_data(restaurents):
     restaurant_data = []
 
     with open('dataset/processed/business.csv', 'r', encoding='utf-8') as csvfile:

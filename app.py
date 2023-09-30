@@ -1,26 +1,13 @@
 from flask import Flask, render_template, request, redirect, flash
-from recommend import collab_recommend_restaurants
-from loader import load_cache, load_encoders, create_dict, get_restaurant_data
+from recommend import collab_recommend_restaurants, hybrid_recommend_restaurants
 from model import create_collab_model
+from loader import get_restaurant_data
 import warnings
 import secrets
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
-
-loaded = False
-def load_data():
-    global loaded, collab_model, num_businesses, num_users, business2idx,  idx2business, user2idx, idx2user, user_cache
-
-    if not loaded:
-        business_encoder, user_encoder, num_businesses, num_users = load_encoders()
-        business2idx, idx2business, user2idx, idx2user = create_dict(business_encoder, user_encoder)
-        collab_model = create_collab_model(num_businesses, num_users)
-        collab_model.load_weights('saved/model_weights.h5')
-        user_cache = load_cache()
-
-        loaded = True
 
 @app.route('/')
 def index():
@@ -41,21 +28,23 @@ def search_restaurants():
 
 @app.route('/recommendations/<user_id>')
 def show_recommendations(user_id):
-    load_data()
-    top_10_restaurants = collab_recommend_restaurants(user_id, collab_model, idx2business, user2idx, user_cache)
+    top_10_restaurants = collab_recommend_restaurants(user_id)
     recommended_restaurants = get_restaurant_data(top_10_restaurants)
-    return render_template('recommendations.html', recommended_restaurants=recommended_restaurants)
+    return render_template('recommendations.html', recommended_restaurants=recommended_restaurants, user_id=user_id)
 
 @app.route('/restaurant/<restaurant_id>')
 def restaurant_page(restaurant_id):
     restaurant_data = get_restaurant_data([restaurant_id])
+    user_id = request.args.get('user_id')
+    top_6_restaurants = hybrid_recommend_restaurants(user_id, restaurant_id)
     restaurant = {
         'id': restaurant_id,
         'name': restaurant_data[0]['name'],
         'rating': restaurant_data[0]['rating'],
         'address': restaurant_data[0]['address'],
         'hours': restaurant_data[0]['hours'],
-        'image_url': restaurant_data[0]['image_url']
+        'image_url': restaurant_data[0]['image_url'],
+        'top_6_restaurants':top_6_restaurants
         # Add other restaurant details here
     }
     return render_template('restaurant.html', restaurant=restaurant)

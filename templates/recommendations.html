@@ -37,7 +37,7 @@
                 <div class="restaurant-list">
                     <div class="restaurant-row">
                         {% for restaurant in recommended_restaurants %}
-                        <a href="{{ url_for('restaurant_page', restaurant_id=restaurant.id) }}" class="restaurant-card">
+                        <a href="{{ url_for('restaurant_page', restaurant_id=restaurant.id, user_id=user_id) }}" class="restaurant-card">
                             <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
                             <div class="restaurant-name">{{ restaurant.name }}</div>
                             <div class="restaurant-rating">Rating: {{ restaurant.rating }}</div>
