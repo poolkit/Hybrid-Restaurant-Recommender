@@ -1,6 +1,7 @@
 import pickle
 import csv
 import random
+import pandas as pd
 from model import create_collab_model
 
 def load_encoders():
@@ -43,9 +44,18 @@ def load_data():
     user_cache = load_cache()
     return idx2business, user2idx, collab_model, user_cache
 
+def get_photo(restaurant_id, df):
+    filenames = list(df[df['business_id']==restaurant_id]['photo_id'].values)
+    try:
+        filename = random.sample(filenames, 1)
+        filepath = f"/static/photos/{filename[0]}.jpg"
+    except:
+        filepath = "https://cdn.dribbble.com/users/1012566/screenshots/4187820/media/985748436085f06bb2bd63686ff491a5.jpg?resize=400x300&vertical=center"
+    return filepath
 
 def get_restaurant_data(restaurents):
     restaurant_data = []
+    photos_df = pd.read_json("dataset/jsons/photos.json", lines=True)
 
     with open('dataset/processed/business.csv', 'r', encoding='utf-8') as csvfile:
         csvreader = csv.DictReader(csvfile)
@@ -56,9 +66,11 @@ def get_restaurant_data(restaurents):
                 restaurant_rating = row['stars']
                 restaurant_address = row['address']
                 restaurant_hours = row['hours']
-                restaurant_timings = eval(restaurant_hours)
-                restaurant_image_url = "https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg"  # If you have an 'image_url' column
-
+                try:
+                    restaurant_timings = eval(restaurant_hours)
+                except:
+                    restaurant_timings = {}
+                restaurant_image_url = get_photo(restaurant_id, photos_df)
                 restaurant_data.append({
                                 'id': restaurant_id,
                                 'name': restaurant_name,

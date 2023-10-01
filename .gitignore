@@ -3,3 +3,4 @@ dataset/
 notebooks/.ipynb_checkpoints/
 saved/
 __pycache__/
+static/photos/
