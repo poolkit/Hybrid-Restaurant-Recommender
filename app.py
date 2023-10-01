@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, flash
-from recommend import collab_recommend_restaurants, hybrid_recommend_restaurants
+from flask import Flask, render_template, request, redirect, flash, url_for
+from recommend import collab_recommend_restaurants, hybrid_recommend_restaurants, get_search_restaurants
 from model import create_collab_model
-from loader import get_restaurant_data
+from loader import get_restaurant_data, load_categories
 import warnings
 import secrets
 warnings.filterwarnings("ignore")
@@ -23,14 +23,24 @@ def recommendations():
 
 @app.route('/recommendations/<user_id>')
 def show_recommendations(user_id):
+    all_categories = load_categories()
     top_10_restaurants = collab_recommend_restaurants(user_id)
     recommended_restaurants = get_restaurant_data(top_10_restaurants)
-    return render_template('recommendations.html', recommended_restaurants=recommended_restaurants, user_id=user_id)
+    return render_template('recommendations.html', recommended_restaurants=recommended_restaurants, user_id=user_id, major_categories=all_categories)
+
 
 @app.route('/search', methods=['POST'])
-def search_restaurants():
-    selected_options = request.form.getlist('option')
-    return render_template('search.html', selected_options=', '.join(selected_options))
+def search():
+    cuisine = request.form['search']
+    user_id = request.args.get('user_id')
+    return redirect(url_for('search_restaurants', cuisine=cuisine, user_id=user_id))
+
+@app.route('/search/<cuisine>')
+def search_restaurants(cuisine):
+    user_id = request.args.get('user_id')
+    matching_restaurants = get_search_restaurants(cuisine)
+    matching_restaurants = get_restaurant_data(matching_restaurants)
+    return render_template('search.html',  matching_restaurants=matching_restaurants, user_id=user_id, cuisine=cuisine)
 
 @app.route('/restaurant/<restaurant_id>')
 def restaurant_page(restaurant_id):
@@ -52,7 +62,4 @@ def restaurant_page(restaurant_id):
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=True)
 
-# load_data()
-# x = collab_recommend_restaurants('mh_-eMZ6K5RLWhZyISBhwA', collab_model, idx2business, user2idx, user_cache)
-# x = get_restaurant_data(x)
-# print(x)
+#mh_-eMZ6K5RLWhZyISBhwA

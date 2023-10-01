@@ -1,9 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='search.css') }}">
 </head>
 <body>
-    <h1>{{ selected_options }}</h1>
+    <div class="header">
+        <h1>Yelp Philadelphia</h1>
+    </div>
+    <h3>Best Places To Enjoy {{ cuisine }}</h3>
+    <div class="restaurant-list">
+        <div class="restaurant-row">
+            {% for restaurant in matching_restaurants %}
+            <a href="{{ url_for('restaurant_page', restaurant_id=restaurant.id, user_id=user_id) }}" class="restaurant-card">
+                <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                <div class="restaurant-name">{{ restaurant.name }}</div>
+                <div class="restaurant-address">{{ restaurant.address }}</div>
+                <div class="restaurant-rating">Rating: {{ restaurant.rating }}</div>
+            </a>
+            {% if loop.index % 5 == 0 %}
+        </div>
+        <div class="restaurant-row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

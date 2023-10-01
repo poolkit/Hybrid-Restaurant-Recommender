@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import pickle
+import csv
 from loader import load_data, load_content_scores
 
 def collab_recommend_restaurants(user_id):
@@ -48,3 +49,18 @@ def hybrid_recommend_restaurants(user_id, business_id):
     top_12 = [t[0] for t in top_12]
     top_6_restaurants = random.sample(top_12, 6)
     return top_6_restaurants
+
+def get_search_restaurants(cuisine):
+    matching = {}
+
+    with open('dataset/processed/business.csv', 'r', encoding='utf-8') as csvfile:
+        csvreader = csv.DictReader(csvfile)
+        for row in csvreader:
+            restaurant_id = row['business_id']
+            if cuisine.lower() in row['categories'].lower(): 
+                matching[restaurant_id] = row['stars']
+
+    matching_rating = sorted(matching.items(), key=lambda item: item[1], reverse=True)
+    matching = matching_rating[:15]
+
+    return [m[0] for m in matching]

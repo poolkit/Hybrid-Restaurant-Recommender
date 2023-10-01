@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ restaurant.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='restaurant.css') }}">
 </head>
+
 <body>
-    <h1>{{ restaurant.name }}</h1>
-    <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
-    <p>{{ restaurant.rating }}</p>
-    <p>{{ restaurant.address }}</p>
-    <p>{{ restaurant.hours }}</p>
-    <div class="restaurant-row">
-        {% for each in top_6_restaurants %}
-        <a href="{{ url_for('restaurant_page', restaurant_id=each.id, user_id=user_id) }}" class="restaurant-card">
-            <img class="restaurant-image" src="{{ each.image_url }}" alt="{{ restaurant.name }}">
-            <div class="restaurant-name">{{ each.name }}</div>
-            <div class="restaurant-rating">Rating: {{ each.rating }}</div>
-        </a>
-        {% if loop.index % 3 == 0 %}
+    <div class="header">
+        <h1>Yelp Philadelphia</h1>
     </div>
-    <div class="restaurant-row">
-        {% endif %}
-        {% endfor %}
+    <div class="container">
+        <div class="content-container">
+            <div class="left-pane">
+                <h3 class="restaurant-heading">{{ restaurant.name }}</h3>
+                <img class="left-restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                <div class="restaurant-info">
+                    <p class="left-restaurant-rating">Rating: {{ restaurant.rating }}</p>
+                    <p>Address: {{ restaurant.address }}</p>
+                    <p>Hours Open:<br>
+                        <ul>
+                            {% for key, value in restaurant.hours.items() %}
+                                <li>{{ key }}: {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div class="right-pane">
+                <div class="header">
+                    <h2 class="recommender-heading">Restaurants similar to this that you'd like</h2>
+                </div>
+                <div class="restaurant-list">
+                    <div class="restaurant-row">
+                        {% for restaurant in top_6_restaurants %}
+                        <a href="{{ url_for('restaurant_page', restaurant_id=restaurant.id, user_id=user_id) }}"
+                            class="restaurant-card">
+                            <img class="restaurant-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                            <div class="restaurant-name">{{ restaurant.name }}</div>
+                            <div class="restaurant-rating">Rating: {{ restaurant.rating }}</div>
+                        </a>
+                        {% if loop.index % 3 == 0 %}
+                    </div>
+                    <div class="restaurant-row">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Add more restaurant details here -->
 </body>
+
 </html>

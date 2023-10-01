@@ -21,8 +21,15 @@ body {
 
 .header {
     text-align: center;
-    margin-bottom: 20px;
-    margin-left:35%
+    margin-top: 10px;
+}
+
+h1 {
+    font-size: 56px;
+    font-family: 'Helvetica';
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #d21d1d; /* Dark gray text color */
 }
 
 .restaurant-list {
@@ -42,9 +49,15 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 10px;
-    margin-right: 10px; /* Add margin between cards */
-    width: 150px; /* Adjust the width to fit 5 cards in a row */
+    margin-right: 10px;
+    width: 150px;
     text-align: center;
+}
+
+.restaurant-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Add a slight scale-up effect on hover */
+    background-color: #f6dbd5;
 }
 
 .restaurant-image {
@@ -80,14 +93,86 @@ body {
     margin-left: 20px;
 }
 
-.options {
-    margin-bottom: 20px;
+.enjoy-heading {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #704c78; /* Set the text color */
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Add some top margin for spacing */
+    font-weight: bold; /* Make the text bold */
+}
+
+.recommender-heading {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #704c78; /* Set the text color */
+    text-align: center; /* Center the text */
+    margin-top: 10px; /* Add some top margin for spacing */
+    font-weight: bold; /* Make the text bold */
 }
 
 .right-pane {
-    width: 50%; /* Adjust the width as needed */
+    width: 50%;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.suggestion-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap between cards as needed */
+}
+
+.suggestion-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Distribute cards evenly within the container */
+    max-width: 200px; /* Adjust the maximum width of each card as needed */
+}
+
+.suggestion-card a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.suggestion-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Add a slight scale-up effect on hover */
+    background-color: #f6dbd5;
+}
+
+.search-form {
+    display: flex;
+    width: 100%; /* Ensure the form spans the width of the left pane */
+    max-width: 400px; /* Set a maximum width for the form, adjust as needed */
+    margin-right: 20px; /* Add some spacing to separate it from the left pane */
+}
+
+#search {
+    flex: 1; /* Make the input field expand and fill the available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px; /* Add spacing between the input and the submit button */
+}
+
+input[type="submit"] {
+    background-color: #fb700d; /* Change the background color of the submit button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff5500; /* Change the background color on hover */
 }

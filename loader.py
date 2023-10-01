@@ -1,5 +1,6 @@
 import pickle
 import csv
+import random
 from model import create_collab_model
 
 def load_encoders():
@@ -55,7 +56,8 @@ def get_restaurant_data(restaurents):
                 restaurant_rating = row['stars']
                 restaurant_address = row['address']
                 restaurant_hours = row['hours']
-                restaurant_image_url = "https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg"  # If you have an 'image_url' column
+                restaurant_timings = eval(restaurant_hours)
+                restaurant_image_url = "https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg"  # If you have an 'image_url' column
 
                 restaurant_data.append({
                                 'id': restaurant_id,
@@ -63,10 +65,17 @@ def get_restaurant_data(restaurents):
                                 'rating': restaurant_rating,
                                 'image_url': restaurant_image_url,
                                 'address': restaurant_address,
-                                'hours': restaurant_hours
+                                'hours': restaurant_timings
                             })
     return restaurant_data
 
+def load_categories():
+    with open('saved/search_category.pickle', 'rb') as b:
+        all_categories = pickle.load(b)
+    random.shuffle(all_categories)
+    return all_categories
+
 if __name__=='__main__':
     business_encoder, user_encoder, num_businesses, num_users = load_encoders()
-    print(business_encoder)
+    business2idx, idx2business, user2idx, idx2user = create_dict(business_encoder, user_encoder)
+    # print(user2idx[''])

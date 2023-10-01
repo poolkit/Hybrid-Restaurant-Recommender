@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.content-container {
+    width: 100%;
+    display: flex;
+}
+
+.restaurant-info {
+    margin-top: 20px;
+}
+
+.restaurant-info p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.left-restaurant-rating {
+    color: #eab7af;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .restaurant-card {
+        width: calc(50% - 10px);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-top: 10px;
+}
+
+h1 {
+    font-size: 56px;
+    font-family: 'Helvetica';
+    font-weight: bold;
+    color: #d21d1d; /* Dark gray text color */
+}
+
+.restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.restaurant-row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+}
+
+.restaurant-card {
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.restaurant-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Add a slight scale-up effect on hover */
+    background-color: #f6dbd5;
+}
+
+.restaurant-image {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.left-restaurant-image {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-heading {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #704c78; /* Set the text color */
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Add some top margin for spacing */
+    font-weight: bold; /* Make the text bold */
+}
+
+.recommender-heading {
+    font-size: 22px; /* Adjust the font size as needed */
+    color: #704c78;
+    font-weight: bold; /* Make the text bold */
+}
+
+.restaurant-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.restaurant-rating {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.left-pane {
+    width: 50%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+
+.right-pane {
+    width: 30%;
+    padding: 50px;
+}

@@ -3,36 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 Restaurant Recommendations</title>
+    <title>Yelp Philadelphia</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='recommendations.css') }}">
 </head>
 <body>
+    <div class="header">
+        <h1>Yelp Philadelphia</h1>
+    </div>
     <div class="container">
-        <div class="header">
-            <h1>Your Restaurant Recommender</h1>
-        </div>
         <div class="content-container">
             <div class="left-pane">
-                <h2>What do you wanna eat today?</h2>
-                <form action="/search" method="post">
-                    <div class="options">
-                        <label>
-                            <input type="checkbox" name="option" value="Option 1"> Option 1
-                        </label>
-                    </div>
-                    <div class="options">
-                        <label>
-                            <input type="checkbox" name="option" value="Option 2"> Option 2
-                        </label>
-                    </div>
-                    <!-- Add more options as needed -->
-
-                    <button type="submit">Submit</button>
+                <h2 class="enjoy-heading">What do you wanna enjoy today?</h2>
+                <form class="search-form" action="{{ url_for('search', user_id=user_id) }}" method="post">
+                    <input type="text" id="search" name="search" autocomplete="off" placeholder="Search">
+                    <input type="submit" value="Search">
                 </form>
+
+                <ul class="suggestion-list">
+                    {% for category in major_categories %}
+                        <li class="suggestion-card">
+                            <a href="{{ url_for('search_restaurants', cuisine=category, user_id=user_id) }}">{{ category }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="right-pane">
                 <div class="header">
-                    <h1>Restaurants You Might Like</h1>
+                    <h2 class="recommender-heading">Restaurants You Might Like</h2>
                 </div>
                 <div class="restaurant-list">
                     <div class="restaurant-row">
