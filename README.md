@@ -1,5 +1,6 @@
 # Restaurant Recommender System
 
+![Restaurant-Recommender](https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?cs=srgb&dl=pexels-pixabay-262978.jpg&fm=jpg)
 This Restaurant Recommender System is designed to provide personalized restaurant recommendations to users based on their preferences and restaurant features. It combines collaborative filtering and content-based filtering techniques to offer a comprehensive and user-friendly restaurant discovery experience.
 
 ## Table of Contents
